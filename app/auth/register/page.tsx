@@ -3,7 +3,7 @@ import React from "react";
 
 export default function RegisterPage() {
   return (
-    <div className="mx-5">
+    <div className="mx-5 ">
       <RegisterForm />
     </div>
   );
