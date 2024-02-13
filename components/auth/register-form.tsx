@@ -4,7 +4,7 @@ import * as z from "zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import CardWrapper from "@/components/auth/card-wrapper";
+import { CardWrapper } from "@/components/auth/card-wrapper";
 import {
   Form,
   FormControl,

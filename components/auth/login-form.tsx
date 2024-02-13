@@ -3,8 +3,10 @@
 import * as z from "zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import CardWrapper from "@/components/auth/card-wrapper";
+
+import { CardWrapper } from "@/components/auth/card-wrapper";
 import {
   Form,
   FormControl,
@@ -16,11 +18,17 @@ import {
 import { LoginSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import FormError from "@/components/form-success";
 import FormSuccess from "@/components/form-success";
+import FormError from "@/components/form-error";
 import { login } from "@/actions/login";
 
 export function LoginForm() {
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email is already in use with different provider!"
+      : "";
+
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
@@ -34,10 +42,9 @@ export function LoginForm() {
     setError("");
     setSuccess("");
     startTransition(() => {
-      login(values);
-      //   .then((data) => {
-      //   setError(data.error), setSuccess(data.success);
-      // });
+      login(values).then((data) => {
+        setError(data?.error), setSuccess(data?.success);
+      });
     });
   }
 
@@ -93,8 +100,8 @@ export function LoginForm() {
               }}
             />
           </div>
-          {/* <FormError message={error} /> */}
-          {/* <FormSuccess message={success} /> */}
+          <FormError message={error || urlError} />
+          <FormSuccess message={success} />
           <Button type="submit" className="w-full" disabled={isPending}>
             Login
           </Button>

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { rowdies } from "@/components/ui/fonts";
 import { cn } from "@/lib/utils";
-import LoginButton from "../components/auth/login-button";
+import { LoginButton } from "../components/auth/login-button";
 
 export default function Home() {
   return (
