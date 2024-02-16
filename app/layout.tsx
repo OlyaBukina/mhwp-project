@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { montserrat } from "@/components/ui/fonts";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,9 +14,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
-    <html lang="en">
-      <body className={montserrat.className}>{children}</body>
-    </html>
+    <SessionProvider session={session}>
+      <html lang="en">
+        <body className={montserrat.className}>{children}</body>
+      </html>
+    </SessionProvider>
   );
 }
