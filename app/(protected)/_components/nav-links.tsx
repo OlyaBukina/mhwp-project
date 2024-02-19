@@ -1,40 +1,25 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import clsx from "clsx";
+import { LuDumbbell, LuLayoutDashboard } from "react-icons/lu";
+import { LiaUserCircle } from "react-icons/lia";
+import { NavLinksItem } from "./nav-links-item";
 
 const links = [
-  { name: "Home", href: "/dashboard", icon: "" },
+  { name: "My workouts", href: "/myWorkouts", icon: LuDumbbell },
   {
-    name: "Invoices",
-    href: "/dashboard/invoices",
-    icon: "",
+    name: "Dashbord",
+    href: "/dashboard",
+    icon: LuLayoutDashboard,
   },
-  { name: "Customers", href: "/dashboard/customers", icon: "" },
+  { name: "Profile", href: "/profile", icon: LiaUserCircle },
 ];
 
-export default function NavLinks() {
-  const pathname = usePathname();
-
+export function NavLinks() {
   return (
-    <>
-      {links.map((link) => {
-        const LinkIcon = link.icon;
-        return (
-          <Link
-            key={link.name}
-            href={link.href}
-            className={clsx(
-              "flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3",
-              { "bg-sky-100 text-blue-600": pathname === link.href }
-            )}
-          >
-            {/* <LinkIcon className="w-6" />
-            <p className="hidden md:block">{link.name}</p> */}
-          </Link>
-        );
-      })}
-    </>
+    <ul>
+      {links.map(({ name, href, icon }) => (
+        <NavLinksItem key={name} name={name} href={href} icon={icon} />
+      ))}
+    </ul>
   );
 }

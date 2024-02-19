@@ -1,4 +1,4 @@
-import SideNav from "./_components/sidenav";
+import { SideNav } from "./_components/sidenav";
 
 interface ProtectedLyaoutProps {
   children: React.ReactNode;

@@ -15,6 +15,7 @@ const config = {
     },
     extend: {
       colors: {
+        navLinkColor: "#BBBBBB",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -50,6 +51,7 @@ const config = {
         },
       },
       borderRadius: {
+        xl: "calc(var(--radius) * 3)",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
