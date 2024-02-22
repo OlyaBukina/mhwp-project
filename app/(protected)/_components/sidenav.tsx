@@ -31,7 +31,7 @@ export function SideNav() {
       >
         <Button variant="signOut" size="xl">
           Sign out
-          <PiSignOutBold className="w-5 h-5" />
+          <PiSignOutBold className="text-navLinkColor w-5 h-5 hover:text-violet-400" />
         </Button>
       </form>
     </aside>

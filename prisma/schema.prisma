@@ -57,3 +57,19 @@ model PasswordResetToken {
 
   @@unique([email, token])
 }
+
+model Exercise {
+  name String
+  force String?
+  level String?
+  mechanic String?
+  equipment String?
+  primaryMuscles String[]
+  secondaryMuscles String[]
+  instructions String[]
+  category String?
+  images String[]
+  id String @id @default(cuid())
+
+  @@unique([id])
+}
