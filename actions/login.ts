@@ -6,9 +6,12 @@ import { LoginSchema } from "../schemas";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { generateVerificationToken } from "@/lib/tokens";
 import { getUserByEmail } from "@/data/user";
-import { sendVerificationEmail } from "@/lib/mail";
+import { sendEmail } from "@/lib/mail";
 
-export async function login(values: z.infer<typeof LoginSchema>) {
+export async function login(
+  values: z.infer<typeof LoginSchema>,
+  callbackUrl?: string | null
+) {
   const validatedFields = LoginSchema.safeParse(values);
   if (!validatedFields.success) {
     return { error: "Invalid fields!" };
@@ -27,9 +30,11 @@ export async function login(values: z.infer<typeof LoginSchema>) {
       existingUser.email
     );
 
-    await sendVerificationEmail(
+    await sendEmail(
       verificationToken.email,
-      verificationToken.token
+      verificationToken.token,
+      "reset your password",
+      "new-password"
     );
 
     return { success: "Confirmation email sent!" };
@@ -38,7 +43,7 @@ export async function login(values: z.infer<typeof LoginSchema>) {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
+      redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
   } catch (error) {
     if (error instanceof AuthError) {
