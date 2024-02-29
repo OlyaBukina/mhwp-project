@@ -33,8 +33,8 @@ export async function login(
     await sendEmail(
       verificationToken.email,
       verificationToken.token,
-      "reset your password",
-      "new-password"
+      "confirm your email",
+      "new-verification"
     );
 
     return { success: "Confirmation email sent!" };
